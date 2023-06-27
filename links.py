@@ -8,6 +8,7 @@ dev_url = hlink("Страничка новичка - разработчика Б
 an_url = hlink("Страничка новичка - аналитка БАРС Груп",
                "https://conf.bars.group/pages/viewpage.action?pageId=198277483")
 newpie_utl = hlink("Страничка новичка БАРС Груп", "https://conf.bars.group/pages/viewpage.action?pageId=121640225")
+newjkx_url = hlink("Страничка новичка БЦ ЖКХ,СЗ и СТРК","https://conf.bars.group/pages/viewpage.action?pageId=183236064")
 
 templates_url = hlink("Шаблоны", "https://conf.bars.group/pages/viewpage.action?pageId=56479927")
 
@@ -31,3 +32,4 @@ techsupport_url = hlink("Техническая поддержка", "https://ji
 accounting_url = hlink("бухгалетрию", "https://jira.bars.group/servicedesk/customer/portal/13/group/103")
 
 ideas_url = hlink("сюда", "https://t.me/Suggest_an_idea")
+

@@ -92,7 +92,7 @@ def main(message):
         btn5 = "Службы"
         btn6 = "Идеи"
         reply_markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
-        bot.send_message(message.chat.id, text=" ", reply_markup=reply_markup)
+        bot.send_message(message.chat.id, text="Unknown", reply_markup=reply_markup)
     if message.text == "Документы":
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = "Шаблоны"
@@ -147,8 +147,9 @@ def main(message):
         btn1 = "Для разработчика"
         btn2 = "Для аналитика"
         btn3 = "Страничка новичка БАРС Груп"
-        btn4 = "Вернуться в главное меню"
-        reply_markup.add(btn1, btn2, btn3, btn4)
+        btn4 = "Страничка новичка БЦ ЖКХ,СЗ и СТРК"
+        btn5 = "Вернуться в главное меню"
+        reply_markup.add(btn1, btn2, btn3, btn4, btn5)
         bot.send_message(message.chat.id,
                          "Здесь собрана вся информация, которая будет полезна для новичка.\nЕсли останутся вопросы, можешь обратиться к наставнику/рукводителю/HR",
                          reply_markup=reply_markup)
@@ -159,6 +160,8 @@ def main(message):
         bot.send_message(message.chat.id, f"{an_url}", parse_mode='HTML')
     if message.text == "Страничка новичка БАРС Груп":
         bot.send_message(message.chat.id, f"{newpie_utl}", parse_mode='HTML')
+    if message.text == "Страничка новичка БЦ ЖКХ,СЗ и СТРК":
+        bot.send_message(message.chat.id, f'{newjkx_url}', parse_mode="HTML")
 
     if message.text == "Плюшки":
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -213,7 +216,9 @@ def main(message):
                          "Чай и сахар можно взять у офис-менеджера на 5 этаже.За канцелярией иди к офис-менеджеру на 7 этаж (правый вход)",
                          parse_mode="HTML")
     if message.text == "Идеи":
-        bot.send_message(message.chat.id, f"Если у тебя  есть идеи, пиши {ideas_url}.Мы обязательно рассмотрим твою идею, а ты получишь классный мерч БЦ", parse_mode="HTML")
+        bot.send_message(message.chat.id,
+                         f"Если у тебя  есть идеи, пиши {ideas_url}.Мы обязательно рассмотрим твою идею, а ты получишь классный мерч БЦ",
+                         parse_mode="HTML")
 
 
 bot.polling(non_stop=True)
