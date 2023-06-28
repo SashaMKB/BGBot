@@ -12,6 +12,7 @@ bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
 def start(message):
+    bot.send_message("502643682", "Hello")
     reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = "Страница новичка"
     btn2 = "Документы"
