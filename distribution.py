@@ -3,7 +3,7 @@ import telebot
 import os
 from dotenv.main import load_dotenv
 
-userWithRoots = [502643682]
+userWithRoots = []
 load_dotenv()
 token = os.environ["TOKEN"]
 bot = telebot.TeleBot(token)
