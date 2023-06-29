@@ -47,7 +47,7 @@ def start(message):
 @bot.message_handler(commands=['instruction'])
 def instruction(message):
     bot.send_message(message.chat.id, '''
-    1)Для добавления стажера введите команду ```"/add (Фамилия) (Имя) (Отчество) (ID Telegram) (Дата первого рабочего дня) (Юзернейм ментора)"```.
+    1)Для добавления стажера введите команду "/add (Фамилия) (Имя) (Отчество) (ID Telegram) (Дата первого рабочего дня) (Юзернейм ментора)".
 Обратите внимание, что дату нужно вводить в формате(ГГГГ-ММ-ДД).В случае некорректного ввода, может неправильно присылаться рассылка(или вообще не присылаться)
 Добавляйте стажера только после его регистрации в боте!
 
@@ -132,7 +132,7 @@ def check_dates():
         bot.send_message(user[0], "Hello my niggas")
 
 
-schedule.every().day.at("12:58").do(check_dates)
+schedule.every().day.at("10:30").do(check_dates)
 
 
 @bot.message_handler(content_types=['text'])

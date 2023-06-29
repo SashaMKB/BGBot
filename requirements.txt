@@ -1,0 +1,4 @@
+schedule
+pyTelegramBotAPI
+sqlite3==3.0
+python-dotenv
