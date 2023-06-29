@@ -12,9 +12,6 @@ import threading
 userWithRoots = [502643682]
 
 
-# Hello world!
-
-
 load_dotenv()
 token = os.environ["TOKEN"]
 bot = telebot.TeleBot(token)
