@@ -1,20 +1,38 @@
-import telebot
-import os
+import schedule
 from telebot import types
 from links import *
-
+import sqlite3
+import telebot
+import os
+from sqlrequests import *
 from dotenv.main import load_dotenv
+import time
+import threading
+
+userWithRoots = [502643682]
 
 load_dotenv()
 token = os.environ["TOKEN"]
 bot = telebot.TeleBot(token)
+conn = sqlite3.connect('newUsers.db', check_same_thread=False)
+cur = conn.cursor()
+
+cur.execute("""CREATE TABLE IF NOT EXISTS users(
+   userid INTEGER PRIMARY KEY autoincrement,
+   surname TEXT,
+   name TEXT,
+   secondname TEXT,
+   idtelegram TEXT,
+   startdate DATE,
+   mentor TEXT DEFAULT 'nobody');
+ """)
+conn.commit()
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message("502643682", "Hello")
     reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = "Страница новичка"
+    btn1 = "Страница новичка🧑‍💻"
     btn2 = "Документы"
     btn3 = "Отпуск/Больничный/Отгул"
     btn4 = "Плюшки"
@@ -24,6 +42,99 @@ def start(message):
     bot.send_message(message.chat.id,
                      "Привет-привет!\nМеня зовут Джулиус\nРад приветствовать тебя.\nЯ помогу тебе найти "
                      "ответы на твои вопросы.\nЧто тебя интересует?", reply_markup=reply_markup)
+
+
+@bot.message_handler(commands=['instruction'])
+def instruction(message):
+    bot.send_message(message.chat.id, '''
+    1)Для добавления стажера введите команду ```"/add (Фамилия) (Имя) (Отчество) (ID Telegram) (Дата первого рабочего дня) (Юзернейм ментора)"```.
+Обратите внимание, что дату нужно вводить в формате(ГГГГ-ММ-ДД).В случае некорректного ввода, может неправильно присылаться рассылка(или вообще не присылаться)
+Добавляйте стажера только после его регистрации в боте!
+
+2) Для просмотра всех стажёров введите "/show"
+
+3) Для удаления стажера из списка стажеров введите команду "/delete (ID Telegram)"
+''')
+
+
+@bot.message_handler(commands=['add'])
+def add_user(message):
+    try:
+        user_id = message.chat.id
+        if user_id in userWithRoots:
+            user_items = message.text.split(" ")
+            if len(user_items) == 7:
+                entity = (user_items[1], user_items[2], user_items[3], user_items[4], user_items[5], user_items[6])
+                insertsql1(entity, cur)
+            else:
+                entity = (user_items[1], user_items[2], user_items[3], user_items[4], user_items[5])
+                insertsql2(entity, cur)
+            conn.commit()
+        else:
+            bot.send_message(message.chat.id, "У вас нет прав")
+    except Exception:
+        bot.send_message(message.chat.id, "Ошибка")
+
+
+@bot.message_handler(commands=["show"])
+def show(message):
+    try:
+        user_id = message.chat.id
+        if user_id in userWithRoots:
+            show_sql(bot, user_id, cur)
+        else:
+            bot.send_message(user_id, "У вас нет прав")
+    except Exception:
+        bot.send_message(message.chat.id, "Ошибка")
+
+
+@bot.message_handler(commands=["delete"])
+def delete(message):
+    try:
+        user_id = message.chat.id
+        if user_id in userWithRoots:
+            user_items = message.text.split(" ")
+            print(user_items[1])
+            delete_user(user_items[1], cur)
+            conn.commit()
+        else:
+            bot.send_message(user_id, "У вас нет прав")
+    except Exception:
+        bot.send_message(message.chat.id, "Ошибка")
+
+
+# @bot.message_handler(commands=['update'])
+# def update(message):
+#     try:
+#         user_id = message.chat.id
+#         if user_id in userWithRoots:
+#             user_items = message.text.split(" ")
+#             print(user_items)
+#             entity = (user_items[1], user_items[2], user_items[3], user_items[4], user_items[5])
+#             updatesql(entity, cur)
+#             conn.commit()
+#         else:
+#             bot.send_message(message.chat.id, "У вас нет прав")
+#     except Exception:
+#         bot.send_message(message.chat.id, "Ошибка")
+
+
+def check_dates():
+    list_of_users7 = selectsql7(cur)
+    print(list_of_users7)
+    for user in list_of_users7:
+        bot.send_message(user[0], "Hello my friends")
+    list_of_users30 = selectsql30(cur)
+    for user in list_of_users30:
+        bot.send_message(user[0], "Hello my niggas")
+    list_of_users92 = selectsql92(cur)
+    for user in list_of_users92:
+        bot.send_message(user[0], "Hello my niggas")
+
+
+schedule.every().day.at("12:58").do(check_dates)
+
+
 @bot.message_handler(content_types=['text'])
 def main(message):
     if message.text == "Вернуться в главное меню ↩":
@@ -164,4 +275,18 @@ def main(message):
                          parse_mode="HTML")
 
 
-bot.polling(non_stop=True)
+def func1():
+    bot.polling(non_stop=True)
+
+
+def func2():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+bot_thread = threading.Thread(target=func1)
+while_tread = threading.Thread(target=func2)
+
+bot_thread.start()
+while_tread.start()

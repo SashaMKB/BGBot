@@ -1,4 +1,8 @@
-def insertsql(entity, cur):
+def insertsql1(entity, cur):
+    cur.execute('INSERT INTO users(surname, name,secondname, idtelegram,startdate,mentor) VALUES(?,?,?,?,?,?)', entity)
+
+
+def insertsql2(entity, cur):
     cur.execute('INSERT INTO users(surname, name,secondname, idtelegram,startdate) VALUES(?,?,?,?,?)', entity)
 
 
@@ -30,3 +34,7 @@ def show_sql(bot, user_id, cur):
 
 def delete_user(userid, cur):
     cur.execute(f"delete from users where idtelegram = {userid}")
+
+#
+# def updatesql(entity, cur):
+#     cur.execute('update users set surname = ?, name= ?,secondname= ?,startdate= ?,mentor= ? ', entity)
