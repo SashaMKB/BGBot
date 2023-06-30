@@ -133,7 +133,7 @@ def check_dates():
         bot.send_message(user[0], "Hello my niggas")
 
 
-schedule.every().day.at("10:30").do(check_dates)
+schedule.every().day.at("11:10").do(check_dates)
 
 
 @bot.message_handler(content_types=['text'])
