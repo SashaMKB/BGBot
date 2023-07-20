@@ -11,7 +11,6 @@ import threading
 
 userWithRoots = [502643682]
 
-
 load_dotenv()
 token = os.environ["TOKEN"]
 bot = telebot.TeleBot(token)
@@ -122,15 +121,17 @@ def delete(message):
 
 def check_dates():
     list_of_users7 = selectsql7(cur)
-    print(list_of_users7)
-    for user in list_of_users7:
-        bot.send_message(user[0], "Hello my friends")
+    if len(list_of_users7) != 0:
+        for user in list_of_users7:
+            bot.send_message(user[0], "Hello my friends")
     list_of_users30 = selectsql30(cur)
-    for user in list_of_users30:
-        bot.send_message(user[0], "Hello my niggas")
+    if len(list_of_users30) != 0:
+        for user in list_of_users30:
+            bot.send_message(user[0], "Hello my niggas")
     list_of_users92 = selectsql92(cur)
-    for user in list_of_users92:
-        bot.send_message(user[0], "Hello my niggas")
+    if len(list_of_users92) != 0:
+        for user in list_of_users92:
+            bot.send_message(user[0], "Hello my niggas")
 
 
 schedule.every().day.at("10:30").do(check_dates)
