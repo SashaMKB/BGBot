@@ -8,8 +8,11 @@ from sqlrequests import *
 from dotenv.main import load_dotenv
 import time
 import threading
+import logging
 
 userWithRoots = [502643682]
+logging.basicConfig(level=logging.INFO, filename='app.log', format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 load_dotenv()
 token = os.environ["TOKEN"]
@@ -191,7 +194,7 @@ def main(message):
         bot.send_message(message.chat.id, "Оформи отпуск/больничный/отгул правильно, чтоб тебя не беспокоили в эти дни",
                          reply_markup=reply_markup,timeout=60)
     if message.text == "Отпуск 🏖":
-        print(message)
+        logging.info('Hello niggas')
         bot.send_message(message.chat.id, f"{vacation_url}", parse_mode='HTML',timeout=60)
     if message.text == "Больничный":
         bot.send_message(message.chat.id, f"{sickleave_url}", parse_mode='HTML',timeout=60)
