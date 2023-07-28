@@ -42,7 +42,7 @@ def start(message):
     btn6 = "Идеи"
     reply_markup.add(btn1, btn2, btn3, btn4, btn5, btn6)
     bot.send_message(message.chat.id,
-                     "Привет-привет!\nМеня зовут Джулиус\nРад приветствовать тебя.\nЯ помогу тебе найти "
+                     "Привет-привет!\nМеня зовут Макси\nРад приветствовать тебя.\nЯ помогу тебе найти "
                      "ответы на твои вопросы.\nЧто тебя интересует?", reply_markup=reply_markup, timeout=60)
 
 
@@ -183,9 +183,13 @@ def main(message):
 3. В периоды пиковой нагрузки выгрузка листа может занять некоторое время, пока ваш запрос стоит в очереди на обработку, но он в любом случае будет выполнен."
         ''', timeout=60)
     if message.text == "Шаблоны":
-        bot.send_message(message.chat.id, f"{templates_url}", parse_mode='HTML', timeout=60)
+        bot.send_message(message.chat.id,
+                         f"По этой {templates_url} ты можешь найти самые акуальные и нужные шаблоны документов",
+                         parse_mode='HTML', timeout=60)
     if message.text == "Справки":
-        bot.send_message(message.chat.id, f"{references_url}", parse_mode="HTML", timeout=60)
+        bot.send_message(message.chat.id,
+                         f"Что можно заказать по этой {references_url}: 2-НДФЛ, копия трудовой книжи/договора, вопрос по отпуску, запрос для военкомата. Обращения обрабатываются в течение 3х рабочих дней после оформления заявки",
+                         parse_mode="HTML", timeout=60)
     if message.text == "Отпуск/Больничный/Отгул":
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = "Отпуск 🏖"
@@ -197,9 +201,12 @@ def main(message):
                          reply_markup=reply_markup, timeout=60)
     if message.text == "Отпуск 🏖":
         logging.info('Hello niggas')
-        bot.send_message(message.chat.id, f"{vacation_url}", parse_mode='HTML', timeout=60)
+        bot.send_message(message.chat.id,
+                         f'Уйти в {vacation_url} так, чтоб тебя потом  "не дергали" с оформленем документов - это талант) И мы тебя этому научим',
+                         parse_mode='HTML', timeout=60)
     if message.text == "Больничный":
-        bot.send_message(message.chat.id, f"{sickleave_url}", parse_mode='HTML', timeout=60)
+        bot.send_message(message.chat.id, f"Если есть необходимость взять {sickleave_url}, то загляни сюда",
+                         parse_mode='HTML', timeout=60)
     if message.text == "Отгул":
         bot.send_message(message.chat.id, f"Пока что тут пусто...", timeout=60)
 
@@ -235,13 +242,18 @@ def main(message):
         reply_markup.add(btn1, btn2, btn3, btn4, btn5)
         bot.send_message(message.chat.id, "Выберите:", reply_markup=reply_markup, timeout=60)
     if message.text == "ДМС":
-        bot.send_message(message.chat.id, f"{dms_url}", parse_mode="HTML", timeout=60)
+        bot.send_message(message.chat.id, f"По этой {dms_url} ты можешь найти положение о ДМС. Там прописаны все условия получения ДМС", parse_mode="HTML", timeout=60)
     if message.text == "Реферальная программа":
-        bot.send_message(message.chat.id, f"{referalprogram_url}", parse_mode="HTML", timeout=60)
+        bot.send_message(message.chat.id,
+                         f"Классно работать с друзьями бок о бок! Ты можешь пригласить их к нам и получить за это выплату. Все условия {referalprogram_url}",
+                         parse_mode="HTML", timeout=60)
     if message.text == "БАРС-КОД":
-        bot.send_message(message.chat.id, f"{code_url}", parse_mode="HTML", timeout=60)
+        bot.send_message(message.chat.id, f"Уникальная система {code_url} для сотрудников 'БАРС Груп'",
+                         parse_mode="HTML", timeout=60)
     if message.text == "Библиотека":
-        bot.send_message(message.chat.id, f"{biblio_url}", parse_mode="HTML", timeout=60)
+        bot.send_message(message.chat.id,
+                         f"Большая коллекция профессиональной литературы в одном {biblio_url}.Если не нашел нужную тебе книгу-напиши @pashkooova_sasha.",
+                         parse_mode="HTML", timeout=60)
     if message.text == "Службы":
         reply_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn1 = "Бухгалтерия"
@@ -284,8 +296,12 @@ def main(message):
 
 
 def func1():
-    bot.polling(non_stop=True)
-
+    while True:
+        try:
+            bot.polling(non_stop=True)
+        except Exception as e:
+            logging.error(e)
+            time.sleep(15)
 
 def func2():
     while True:
