@@ -11,7 +11,7 @@ newpie_utl = hlink("Страничка новичка БАРС Груп", "https
 newjkx_url = hlink("Страничка новичка БЦ ЖКХ,СЗ и СТРК","https://conf.bars.group/pages/viewpage.action?pageId=183236064")
 
 templates_url = hlink("Шаблоны", "https://conf.bars.group/pages/viewpage.action?pageId=56479927")
-
+references_url = hlink("Справки", "https://jira.bars.group/servicedesk/customer/portal/13/group/101")
 # vacation etc.
 sickleave_url = hlink("Больничный",
                       "https://conf.bars.group/pages/viewpage.action?pageId=183237343&preview=/183237343/230693376/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%B1%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D1%87%D0%BD%D1%8B%D0%B9.docx")
